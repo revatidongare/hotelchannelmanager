@@ -1,119 +1,58 @@
-<style>
-	.custom-menu {
-        z-index: 1000;
-	    position: absolute;
-	    background-color: #ffffff;
-	    border: 1px solid #0000001c;
-	    border-radius: 5px;
-	    padding: 8px;
-	    min-width: 13vw;
-}
-a.custom-menu-list {
-    width: 100%;
-    display: flex;
-    color: #4c4b4b;
-    font-weight: 600;
-    font-size: 1em;
-    padding: 1px 11px;
-}
-	span.card-icon {
-    position: absolute;
-    font-size: 3em;
-    bottom: .2em;
-    color: #ffffff80;
-}
-.file-item{
-	cursor: pointer;
-}
-a.custom-menu-list:hover,.file-item:hover,.file-item.active {
-    background: #80808024;
-}
-table th,td{
-	/*border-left:1px solid gray;*/
-}
-a.custom-menu-list span.icon{
-		width:1em;
-		margin-right: 5px
-}
-.candidate {
-    margin: auto;
-    width: 23vw;
-    padding: 0 10px;
-    border-radius: 20px;
-    margin-bottom: 1em;
-    display: flex;
-    border: 3px solid #00000008;
-    background: #8080801a;
+ <!-- Masthead-->
+        <header class="masthead">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-10 align-self-end mb-4">
+                    	<div class="card" id="filter-book">
+                    		<div class="card-body">
+                    			<div class="container-fluid">
+                    				<form action="index.php?page=list" id="filter" method="POST">
+                    					<div class="row">
+                    						<div class="col-md-3">
+                    							<label for="">Chech-in Date</label>
+                    							<input type="text" class="form-control datepicker" name="date_in" autocomplete="off">
+                    						</div>
+                    						<div class="col-md-3">
+                    							<label for="">Chech-out Date</label>
+                    							<input type="text" class="form-control datepicker" name="date_out" autocomplete="off">
+                    						</div>
+                    						
+                    						<div class="col-md-3">
+                    							<br>
+                    							<button class="btn-btn-block btn-primary mt-3">Check Availability</button>
+                    						</div>
 
-}
-.candidate_name {
-    margin: 8px;
-    margin-left: 3.4em;
-    margin-right: 3em;
-    width: 100%;
-}
-	.img-field {
-	    display: flex;
-	    height: 8vh;
-	    width: 4.3vw;
-	    padding: .3em;
-	    background: #80808047;
-	    border-radius: 50%;
-	    position: absolute;
-	    left: -.7em;
-	    top: -.7em;
-	}
-	
-	.candidate img {
-    height: 100%;
-    width: 100%;
-    margin: auto;
-    border-radius: 50%;
-}
-.vote-field {
-    position: absolute;
-    right: 0;
-    bottom: -.4em;
-}
-</style>
+                    					</div>
+                    				</form>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </header>
+	<section class="page-section">
+        </section>
+	<div id="portfolio">
+            <div class="container-fluid p-0">
+                <div class="row no-gutters">
+                	<?php 
+                	include'admin/db_connect.php';
+                	$qry = $conn->query("SELECT * FROM  room_categories order by rand() ");
+                	while($row = $qry->fetch_assoc()):
+                	?>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="#">
+                            <img class="img-fluid" src="assets/img/<?php echo $row['cover_img'] ?>" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-30"><?php echo "$ ".number_format($row['price'],2) ?> per day</div>
+                                <div class="project-name"><?php echo $row['name'] ?></div>
+                            </div>
+                        </a>
+                    </div>
+                	<?php endwhile; ?>
 
-<div class="containe-fluid">
-
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="card col-md-4 offset-2 bg-info float-left">
-				<div class="card-body text-white">
-					<h4><b>Booking</b></h4>
-					<hr>
-					<span class="card-icon"><i class="fa fa-users"></i></span>
-					<h3 class="text-right"><b></b></h3>
-				</div>
-			</div>
-			<div class="card col-md-4 offset-2 bg-primary ml-4 float-left">
-				<div class="card-body text-white">
-					<h4><b>Rooms</b></h4>
-					<hr>
-					<span class="card-icon"><i class="fa fa-user-tie"></i></span>
-					<h3 class="text-right"><b></b></h3>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row mt-3 ml-3 mr-3">
-			<div class="col-lg-12">
-			<div class="card">
-				<div class="card-body">
-<?php //var_dump($_SESSION)  ?>
-									
-				</div>
-			</div>
-			
-		</div>
-		</div>
-	</div>
-
-</div>
-<script>
-	
-</script>
+                </div>
+            </div>
+        </div>

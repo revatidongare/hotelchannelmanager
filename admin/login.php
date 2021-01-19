@@ -126,7 +126,7 @@ $query = $conn->query("SELECT * FROM system_settings limit 1")->fetch_array();
 				if(resp == 1){
 					location.href ='index.php?page=home';
 				}else if(resp == 2){
-					location.href ='voting.php';
+					location.href ='index.php?page=home';
 				}else{
 					$('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
 					$('#login-form button[type="button"]').removeAttr('disabled').html('Login');
