@@ -51,7 +51,7 @@ $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtot
 						while($row = $cat->fetch_assoc()){
 							$cat_arr[$row['id']] = $row;
 						}
-						$qry = $conn->query("SELECT * from `tbl_events` where `category` = $cat_arr[$row['category_id']]['id'] AND `start` BETWEEN '$date_in' and '$date_out' and `end` BETWEEN '$date_in' and '$date_out'");
+						$qry = $conn->query("SELECT distinct(category_id),category from tbl_events where id in (SELECT * from `tbl_events` where `start` BETWEEN '$date_in' and '$date_out' and `end` BETWEEN '$date_in' and '$date_out')");
 							while($row= $qry->fetch_assoc()):
 
 						?>
