@@ -93,3 +93,7 @@ $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtot
 		uni_modal('Book','admin/book.php?in=<?php echo $date_in ?>&out=<?php echo $date_out ?>&cid='+$(this).attr('data-id'))
 	})
 </script>
+
+
+
+<!-- SELECT * FROM `tbl_events` WHERE `start` BETWEEN '2021-01-29' AND '2021-01-31' and `end` BETWEEN '2021-01-29' AND '2021-01-31' and Category = 3 -->
