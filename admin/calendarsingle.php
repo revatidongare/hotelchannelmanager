@@ -12,7 +12,7 @@
 $(document).ready(function () {
     var calendar = $('#calendar').fullCalendar({
         editable: true,
-        events: "fetch-event.php",
+        events: "fetch-event-single.php",
         displayEventTime: false,
         eventRender: function (event, element, view) {
             if (event.allDay === 'true') {
@@ -31,7 +31,7 @@ $(document).ready(function () {
                 var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
 
                 $.ajax({
-                    url: 'add-event.php',
+                    url: 'add-event-single.php',
                     data: 'title=' + title + '&start=' + start + '&end=' + end,
                     type: "POST",
                     success: function (data) {
@@ -69,7 +69,7 @@ $(document).ready(function () {
             if (deleteMsg) {
                 $.ajax({
                     type: "POST",
-                    url: "delete-event.php",
+                    url: "delete-event-single.php",
                     data: "&id=" + event.id,
                     success: function (response) {
                         if(parseInt(response) > 0) {

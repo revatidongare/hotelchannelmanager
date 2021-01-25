@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2020 at 10:41 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Generation Time: Jan 23, 2021 at 07:40 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,7 +49,8 @@ INSERT INTO `checked` (`id`, `ref_no`, `room_id`, `name`, `contact_no`, `date_in
 (5, '9564082520\n', 1, 'John Smith', '+14526-5455-44', '2020-09-19 11:48:33', '2020-09-22 11:48:33', 0, 2, '2020-09-19 13:12:19'),
 (6, '2765813481\n', 1, 'asdasd asdas as', '8747808787', '2020-09-19 13:16:00', '2020-09-24 13:16:00', 0, 2, '2020-09-19 13:43:21'),
 (7, '4392831400\n', 3, 'Sample', '5205525544', '2020-09-19 13:00:00', '2020-09-23 13:00:00', 0, 2, '2020-09-19 16:00:55'),
-(10, '6479004224\n', 1, 'John Smith', '+14526-5455-44', '2020-09-23 10:31:00', '2020-09-29 10:31:00', 3, 1, '2020-09-19 16:39:59');
+(10, '6479004224\n', 1, 'John Smith', '+14526-5455-44', '2020-09-23 10:31:00', '2020-09-29 10:31:00', 3, 1, '2020-09-19 16:39:59'),
+(11, '4093964143\n', 0, 'revati', '999999999', '2021-01-20 10:39:00', '2021-01-22 10:39:00', 3, 0, '2021-01-14 15:09:47');
 
 -- --------------------------------------------------------
 
@@ -69,8 +70,10 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `room`, `category_id`, `status`) VALUES
-(1, 'Room-101', 3, 1),
-(3, 'Room-102', 2, 0);
+(1, 'Room-101', 3, 0),
+(3, 'Room-102', 2, 0),
+(5, 'Room-101', 4, 0),
+(6, 'Room-104', 6, 0);
 
 -- --------------------------------------------------------
 
@@ -120,6 +123,28 @@ INSERT INTO `system_settings` (`id`, `hotel_name`, `email`, `contact`, `cover_im
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_events`
+--
+
+CREATE TABLE `tbl_events` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_events`
+--
+
+INSERT INTO `tbl_events` (`id`, `title`, `start`, `end`) VALUES
+(12, '3', '2021-01-23 00:00:00', '2021-01-24 00:00:00'),
+(13, '0', '2021-01-29 00:00:00', '2021-01-30 00:00:00'),
+(14, '0', '2021-01-30 00:00:00', '2021-01-31 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -136,7 +161,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `type`) VALUES
-(1, 'Administrator', 'admin', 'admin123', 1);
+(1, 'Administrator', 'admin', 'admin123', 1),
+(6, 'revati', 'revati', '123456', 2);
 
 --
 -- Indexes for dumped tables
@@ -167,6 +193,12 @@ ALTER TABLE `system_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_events`
+--
+ALTER TABLE `tbl_events`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -180,13 +212,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `checked`
 --
 ALTER TABLE `checked`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `room_categories`
@@ -201,10 +233,16 @@ ALTER TABLE `system_settings`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `tbl_events`
+--
+ALTER TABLE `tbl_events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

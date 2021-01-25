@@ -51,7 +51,7 @@ $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtot
 						while($row = $cat->fetch_assoc()){
 							$cat_arr[$row['id']] = $row;
 						}
-						$qry = $conn->query("SELECT * from `tbl_events` where `category` = $cat_arr[$row['category_id']]['id'] AND `start` BETWEEN '$date_in' and '$date_out' and `end` BETWEEN '$date_in' and '$date_out'");
+						$qry = $conn->query("SELECT distinct(category_id),category_id from rooms where id not in (SELECT room_id from checked where '$date_in' BETWEEN date(date_in) and date(date_out) and '$date_out' BETWEEN date(date_in) and date(date_out)  )");
 							while($row= $qry->fetch_assoc()):
 
 						?>
@@ -63,10 +63,6 @@ $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtot
 								</div>
 								<div class="col-md-5" height="100%">
 									<h3><b><?php echo '$ '.number_format($cat_arr[$row['category_id']]['price'],2) ?></b><span> / per day</span></h3>
-
-									<!-- <h4><b>
-										<?php echo $cat_arr[$row['category_id']]['name'] ?>
-									</b></h4> -->
 
 									<h4><b>
 										<?php echo $cat_arr[$row['category_id']]['name'] ?>
