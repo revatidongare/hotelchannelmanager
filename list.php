@@ -45,8 +45,28 @@ $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtot
 						<hr>	
 						
 						<?php 
+						$query = "SELECT * FROM `tbl_events` WHERE `start` BETWEEN '$date_in' AND '$date_out' and `end` BETWEEN '$date_in' AND '$date_out'";
+                             include 'config.php';
+                             $stmt=$conn->prepare($query);
+                             $stmt->execute();
+                             $result=$stmt->fetchAll();
+                             $conn=null;
+                                  
+                             foreach($result as $room){
+                             	$id = $room['category'];
+
+                             	$que = "SELECT * FROM `room_categories` WHERE `id` = $id";
+                             include 'config.php';
+                             $stmt1=$conn->prepare($que);
+                             $stmt1->execute();
+                             $result1=$stmt1->fetchAll();
+                             $conn=null;
+
+                             foreach($result1 as $room_categories){
+
+                  ?>
 						
-						 $cat = $conn->query("SELECT * FROM room_categories");
+						 <!-- $cat = $conn->query("SELECT * FROM room_categories");
 						$cat_arr = array();
 						while($row = $cat->fetch_assoc()){
 							$cat_arr[$row['id']] = $row;
@@ -54,32 +74,38 @@ $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtot
 						$qry = $conn->query("SELECT distinct(category_id),category from tbl_events where id in (SELECT * from `tbl_events` where `start` BETWEEN '$date_in' and '$date_out' and `end` BETWEEN '$date_in' and '$date_out')");
 							while($row= $qry->fetch_assoc()):
 
-						?>
+						?> -->
 						<div class="card item-rooms mb-3">
 							<div class="card-body">
 								<div class="row">
 								<div class="col-md-5">
-									<img src="assets/img/<?php echo $cat_arr[$row['category_id']]['cover_img'] ?>" alt="">
+									<img src="assets/img/<?php echo $room_categories['cover_img'] ?>" alt="">
 								</div>
 								<div class="col-md-5" height="100%">
-									<h3><b><?php echo '$ '.number_format($cat_arr[$row['category_id']]['price'],2) ?></b><span> / per day</span></h3>
-
-									<!-- <h4><b>
-										<?php echo $cat_arr[$row['category_id']]['name'] ?>
-									</b></h4> -->
+									<h3><b>Price: ₹<?php echo $room_categories['price']?></b><span> / per day</span></h3>
 
 									<h4><b>
-										<?php echo $cat_arr[$row['category_id']]['name'] ?>
+										<?php $dateinn = $room['start'] ?>
+										Availability Date : <?php echo date($dateinn)?>
+									</b></h4>
+
+									<h4><b>
+										Available Room : <?php echo $room['title'] ?>
+									</b></h4>
+
+									<h4><b>
+										Room Type: <?php echo $room_categories['name'] ?>
 									</b></h4>
 									<div class="align-self-end mt-5">
-										<button class="btn btn-primary  float-right book_now" type="button" data-id="<?php echo $row['category_id'] ?>">Book now</button>
+										<button class="btn btn-primary  float-right book_now" type="button" data-id="<?php echo $room['category'] ?>">Book now</button>
 									</div>
 								</div>
 							</div>
 
 							</div>
 						</div>
-						<?php endwhile; ?>
+						<?php }
+					}?>
 				</div>	
 		</div>	
 </section>
