@@ -140,6 +140,8 @@ Class Action {
 		$data .= ", date_in = '".$date_in.' '.$date_in_time."' ";
 		$out= date("Y-m-d H:i",strtotime($date_in.' '.$date_in_time.' +'.$days.' days'));
 		$data .= ", date_out = '$out' ";
+		$data .= ", noofroom = '$noofroom'";
+
 		$i = 1;
 		while($i== 1){
 			$ref  = sprintf("%'.04d\n",mt_rand(1,9999999999));
@@ -180,6 +182,12 @@ Class Action {
 		$data .= ", date_in = '".$date_in.' '.$date_in_time."' ";
 		$out= date("Y-m-d H:i",strtotime($date_in.' '.$date_in_time.' +'.$days.' days'));
 		$data .= ", date_out = '$out' ";
+		$data .= ", noofroom = '$noofroom'";
+
+		$noofroom .= ", noofroom = '$noofroom'";
+		echo $noofroom;
+		exit();
+
 		$i = 1;
 		while($i== 1){
 			$ref  = sprintf("%'.04d\n",mt_rand(1,9999999999));
@@ -190,6 +198,27 @@ Class Action {
 
 			$save = $this->db->query("INSERT INTO checked set ".$data);
 			$id=$this->db->insert_id;
+
+						$query = "SELECT * FROM `tbl_events` WHERE `start` BETWEEN '$date_in' AND '$out' and `end` BETWEEN '$date_in' AND '$out'";
+                             include '../config.php';
+                             $stmt=$conn->prepare($query);
+                             $stmt->execute();
+                             $result=$stmt->fetchAll();
+                             $conn=null;
+                                  
+                             foreach($result as $room){
+                             	$id2 = $room['category'];
+                            
+                             	$query2 = "UPDATE `tbl_events` SET `title`=[value-$noofroom] WHERE `id` = $id2";
+                             	include '../config.php';
+                             $stmt2=$conn->prepare($query2);
+                             $stmt2->execute();
+                             $result2=$stmt2->fetchAll();
+                             $conn=null;
+
+                         
+                     }
+
 		
 		if($save){
 					return $id;

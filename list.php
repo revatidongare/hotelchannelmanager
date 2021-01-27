@@ -97,7 +97,7 @@ $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtot
 										Room Type: <?php echo $room_categories['name'] ?>
 									</b></h4>
 									<div class="align-self-end mt-5">
-										<button class="btn btn-primary  float-right book_now" type="button" data-id="<?php echo $room['category'] ?>">Book now</button>
+										<button class="btn btn-primary  float-right book_now" type="button" data-id1="<?php echo $room['id'] ?>" data-id="<?php echo $room['category'] ?>">Book now</button>
 									</div>
 								</div>
 							</div>
@@ -116,7 +116,7 @@ $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtot
 </style>
 <script>
 	$('.book_now').click(function(){
-		uni_modal('Book','admin/book.php?in=<?php echo $date_in ?>&out=<?php echo $date_out ?>&cid='+$(this).attr('data-id'))
+		uni_modal('Book','admin/book.php?id='+$(this).attr('data-id1')+'&in=<?php echo $date_in ?>&out=<?php echo $date_out ?>&cid='+$(this).attr('data-id'))
 	})
 </script>
 

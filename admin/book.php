@@ -2,6 +2,7 @@
 include('db_connect.php');
 	$rid = '';
 
+$idd = $_GET['id'];
 $calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ; 
  $calc_days =floor($calc_days / (60*60*24)  );
 ?>
@@ -17,7 +18,7 @@ $calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ;
 			<input type="text" name="name" id="name" class="form-control" value="<?php echo isset($meta['name']) ? $meta['name']: '' ?>" required>
 		</div>
 		<div class="form-group">
-			<label for="contact">Contact #</label>
+			<label for="contact">Contact No.#</label>
 			<input type="text" name="contact" id="contact" class="form-control" value="<?php echo isset($meta['contact_no']) ? $meta['contact_no']: '' ?>" required>
 		</div>
 		<div class="form-group">
@@ -31,6 +32,22 @@ $calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ;
 		<div class="form-group">
 			<label for="days">Days of Stay</label>
 			<input type="number" min ="1" name="days" id="days" class="form-control" value="<?php echo isset($_GET['in']) ? $calc_days: 1 ?>" required readonly>
+		</div>
+
+		<div class="form-group">
+			<?php 
+			$queryy = "SELECT * FROM `tbl_events` WHERE `id` = '$idd'";
+			include '../config.php';
+                             $stmt1=$conn->prepare($queryy);
+                             $stmt1->execute();
+                             $result1=$stmt1->fetch();
+                             $conn=null;
+
+			$max = $result1['title']; 
+			
+			?>
+			<label for="days">No.of Room</label>
+			<input type="number" min ="0" max="<?php echo $max; ?>" name="noofroom" id="noofroom" class="form-control" required>
 		</div>
 	</form>
 </div>

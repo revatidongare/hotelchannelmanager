@@ -83,6 +83,6 @@
        <?php include('footer.php') ?>
     </body>
 
-    <?php $conn->close() ?>
+    <?php $conn->close(); ?>
 
 </html>
